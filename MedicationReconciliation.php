@@ -19,8 +19,11 @@ session_start();
             border: 1px solid #243;
         }
 
-        .material-icons.md-36 { font-size: 36px; }
+        .material-icons.md-36 {
+            font-size: 36px;
+        }
     </style>
+    <link href="https://www.wisc-online.com/ARISE_Files/CSS/AriseMainCSS.css?random=wer" rel="stylesheet">
     <!-- CSS for AutoComplete -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- Font Awesome -->
@@ -28,32 +31,45 @@ session_start();
           rel="stylesheet">
 </head>
 <body>
-    <div class="testArea" style="border: 1px solid #000;">
+    <table id="patientInfoTable">
+        <tr>
+            <th>Patient Name</th>
+            <th>DOB</th>
+            <th>MR#</th>
+        </tr>
+        <tr>
+            <td><span id="ptntNameOutput"></span></td>
+            <td><span id="ptntDOBOutput"></span></td>
+            <td><span id="ptntMROutput"></span></td>
+        </tr>
+        <tr>
+            <th>Allergies</th>
+            <th>Height(cm)</th>
+            <th>Admission Weight(kg)</th>
+        </tr>
+        <tr>
+            <td><span id="ptntAllergyOutput"></span></td>
+            <td><span id="ptntHeightOutput"></span></td>
+            <td><span id="ptntWeightOutput"></span></td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <div class="medicationReconArea" id="patientInfoTable">
         <form style="padding: 10px;" action="<?=htmlspecialchars($_SERVER['PHP_SELF'])?>" method="get">
             <label>Medication</label>
             <input type="text" spellcheck="true" id="drugName" name="drugName" required="required">
-<!--            Removed to test for just 2 Fields-->
-<!--            <label>Dosage</label>-->
-<!--            <input type="number" id="drugDosage" name="drugDosage" required="required">-->
-<!--            <label>Unit(s)</label>-->
-<!--            <select id="drugUnit" name="drugUnit" required="required">-->
-<!--                <option value="N/A">N/A</option>-->
-<!--                <option value="cc">cc</option>-->
-<!--                <option value="milligrams">mg</option>-->
-<!--                <option value="micrograms">mcg</option>-->
-<!--                <option value="unit">unit</option>-->
-<!--                <option value="capsule">capsule</option>-->
-<!--                <option value="tablet">tablet</option>-->
-<!--            </select>-->
             <label>Description</label>
             <input type="text" spellcheck="true" id="drugNote" name="drugNote" required="required">
-            <button class="submit" type="submit" name="submit">Submit</button>
+            <button class="submit" type="submit" name="submit" style="float: inherit;">Submit</button>
         </form>
     </div>
+    <br>
+    <br>
     <div class="medList">
         <table id="medTable">
             <tr>
-                <th>Medication</th>
+                <th>Current Medication</th>
                 <th>Daily Med Link</th>
                 <th>Notes</th>
                 <th>Edit</th>
@@ -71,9 +87,18 @@ session_start();
                 function printRows($item) {
 
                     echo "<tr><td>$item[0]</td>";
-                    echo "<td><a href='$item[1]'><i class=\"material-icons md-36\" style='display: inline-block'>link</i></a></td>";
+                    echo "<td><a href='$item[1]'><i class=\"material-icons md-36\" style='float: none;'>link</i></a></td>";
                     echo "<td>$item[2]</td>";
 
+
+                }
+
+                function discontinuedTable() {
+
+                    echo "</table><br><br><table><tr><th>Discontinued Medication</th>";
+                    echo "<th>Daily Med Link</th>";
+                    echo "<th>Notes</th>";
+                    echo "<th>Edit</th></tr>";
 
                 }
 
@@ -96,6 +121,22 @@ session_start();
                             $number++;
 
                         }
+
+                        if (isset($_SESSION['discontinued'])) {
+
+                            discontinuedTable();
+
+                            foreach ($_SESSION['discontinued'] as $value) {
+
+                                printRows($value);
+
+                                echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . " disabled='disabled'>Discontinue</button></form></td></tr>";
+
+                                $number++;
+
+                            }
+
+                        }
                     } else {
 
                         echo "<h1>This medication cannot be added.</h1>";
@@ -111,24 +152,52 @@ session_start();
                                 $number++;
                             }
 
+                            if (isset($_SESSION['discontinued'])) {
+
+                                discontinuedTable();
+
+                                foreach ($_SESSION['discontinued'] as $value) {
+
+                                    printRows($value);
+
+                                    echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . " disabled='disabled'>Discontinue</button></form></td></tr>";
+
+                                    $number++;
+
+                                }
+
+                            }
+
                         }
 
                     }
 
                 } else if(isset($_GET['discontinue'])) {
 
-                    echo "<h1>This medication is now discontinued. Please press Continue to refresh the medication list.</h1>";
+//                    echo "<h1>This medication is now discontinued. Please press Continue to refresh the medication list.</h1>";
 
                     $_SESSION['discontinued'][] = $_SESSION['medList'][$_GET['discontinue']];
 
                     unset($_SESSION['medList'][$_GET['discontinue']]);
                     $_SESSION['medList'] = array_values($_SESSION['medList']);
 
-                    echo "<form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='confirm'><button type='submit' name='continue' id=" . $number . "continue" ." value='-1'>Continue</button></form>";
+
 
                     foreach ($_SESSION['medList'] as $item) {
 
                         printRows($item);
+
+                        echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . " >Discontinue</button></form></td></tr>";
+
+                        $number++;
+
+                    }
+
+                    discontinuedTable();
+
+                    foreach ($_SESSION['discontinued'] as $value) {
+
+                        printRows($value);
 
                         echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . " disabled='disabled'>Discontinue</button></form></td></tr>";
 
@@ -148,13 +217,7 @@ session_start();
 
                     }
 
-                    echo "<br><br>";
-                    echo "<tr></tr>";
-                    echo "<tr></tr>";
-                    echo "<tr><th>Discontinued Medication</th>";
-                    echo "<th>Daily Med Link</th>";
-                    echo "<th>Notes</th>";
-                    echo "<th>Edit</th></tr>";
+                    discontinuedTable();
 
                     foreach ($_SESSION['discontinued'] as $value) {
 
@@ -184,5 +247,7 @@ session_start();
         });
 
     </script>
+    <script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/PatientInfo/HectorFernandezInfo.js"></script>
+    <script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/ptntInfoInclude.js"></script>
 </body>
 </html>
