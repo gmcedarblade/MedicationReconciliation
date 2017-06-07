@@ -22,6 +22,21 @@ session_start();
         .material-icons.md-36 {
             font-size: 36px;
         }
+
+        #medicationEnterArea {
+            border:2px solid black;
+        }
+
+        #discontinuedMedList {
+
+            background-color: #e5e5e5;
+            color: #8f8f8f;
+
+        }
+
+        #discontinuedMedList button {
+            color: #8f8f8f;
+        }
     </style>
     <link href="https://www.wisc-online.com/ARISE_Files/CSS/AriseMainCSS.css?random=wer" rel="stylesheet">
     <!-- CSS for AutoComplete -->
@@ -55,11 +70,11 @@ session_start();
     </table>
     <br>
     <br>
-    <div class="medicationReconArea" id="patientInfoTable">
+    <div class="medicationEnterArea" id="medicationEnterArea">
         <form style="padding: 10px;" action="<?=htmlspecialchars($_SERVER['PHP_SELF'])?>" method="get">
             <label>Medication</label>
             <input type="text" spellcheck="true" id="drugName" name="drugName" required="required">
-            <label>Description</label>
+            <label>Notes</label>
             <input type="text" spellcheck="true" id="drugNote" name="drugNote" required="required">
             <button class="submit" type="submit" name="submit" style="float: inherit;">Submit</button>
         </form>
@@ -67,7 +82,7 @@ session_start();
     <br>
     <br>
     <div class="medList">
-        <table id="medTable">
+        <table id="activeMedList">
             <tr>
                 <th>Current Medication</th>
                 <th>Daily Med Link</th>
@@ -95,7 +110,7 @@ session_start();
 
                 function discontinuedTable() {
 
-                    echo "</table><br><br><table><tr><th>Discontinued Medication</th>";
+                    echo "</table><br><br><table id='discontinuedMedList'><tr><th>Discontinued Medication</th>";
                     echo "<th>Daily Med Link</th>";
                     echo "<th>Notes</th>";
                     echo "<th>Edit</th></tr>";
