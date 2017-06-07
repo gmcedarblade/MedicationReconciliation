@@ -37,6 +37,10 @@ session_start();
         #discontinuedMedList button {
             color: #8f8f8f;
         }
+
+        #activeMedList i {
+            text-align: justify;
+        }
     </style>
     <link href="https://www.wisc-online.com/ARISE_Files/CSS/AriseMainCSS.css?random=wer" rel="stylesheet">
     <!-- CSS for AutoComplete -->
@@ -189,14 +193,10 @@ session_start();
 
                 } else if(isset($_GET['discontinue'])) {
 
-//                    echo "<h1>This medication is now discontinued. Please press Continue to refresh the medication list.</h1>";
-
                     $_SESSION['discontinued'][] = $_SESSION['medList'][$_GET['discontinue']];
 
                     unset($_SESSION['medList'][$_GET['discontinue']]);
                     $_SESSION['medList'] = array_values($_SESSION['medList']);
-
-
 
                     foreach ($_SESSION['medList'] as $item) {
 
