@@ -41,6 +41,8 @@ session_start();
 
         #discontinuedMedList button {
             color: #8f8f8f;
+            background-color: #cfd0d0;
+            border-color: #8f8f8f;
         }
 
         #activeMedList i {
@@ -57,13 +59,16 @@ session_start();
 
         #activeMedList td {
             width: 25%;
-
         }
 
         #discontinuedMedList td {
             width: 25%;
-
         }
+
+        #linkTD {
+            text-align: center;
+        }
+
     </style>
     <link href="https://www.wisc-online.com/ARISE_Files/CSS/AriseMainCSS.css?random=wer" rel="stylesheet">
     <!-- CSS for AutoComplete -->
@@ -133,12 +138,12 @@ session_start();
 
                 /*
                  * Prints out the medication name/dosage, Daily Med link,
-                 * and notes that were entered in when called.
+                 * and notes that were entered in when called
                  */
                 function printRows($item) {
 
                     echo "<tr><td>$item[0]</td>";
-                    echo "<td><a href='$item[1]'><i class=\"material-icons md-36\" style='float: none;'>link</i></a></td>";
+                    echo "<td id='linkTD'><a href='$item[1]'><i class=\"material-icons md-36\" style='float: none;'>link</i></a></td>";
                     echo "<td>$item[2]</td>";
 
 
@@ -333,17 +338,22 @@ session_start();
 
                     }
 
-                    discontinuedTable();
+                    if(isset($_SESSION['discontinued'])) {
 
-                    foreach ($_SESSION['discontinued'] as $value) {
+                        discontinuedTable();
 
-                        printRows($value);
+                        foreach ($_SESSION['discontinued'] as $value) {
 
-                        echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . " disabled='disabled'>Discontinue</button></form></td></tr>";
+                            printRows($value);
 
-                        $number++;
+                            echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . " disabled='disabled'>Discontinue</button></form></td></tr>";
+
+                            $number++;
+
+                        }
 
                     }
+
 
                 }
 
@@ -362,6 +372,27 @@ session_start();
         $('#drugName').autocomplete({
             source: [ 'Aspirin PO 5MG', 'Methylprednisolone', 'Advair', 'Fentanyl', 'Flonase', 'Zyrtec', 'Day Quill', 'Metropolol PO 2MG']
         });
+
+        /*
+        Code to allow us to check if certain medication is in the $_SESSION['medList'}
+        and if it is then send to ARIS a set item count to 1. Do NOT uncomment unless
+        we are using this in the scenario.
+         */
+
+//        var phpArray = <?php //echo json_encode($_SESSION['medList']); ?>//;
+//
+//        for (var i=0; i<phpArray.length; i++) {
+//
+//            if(phpArray[i][0] == "Aspirin PO 5MG") {
+//                console.log("HERE!");
+//                var ARIS = {};
+//                ARIS.ready = function () {
+//                    var addedMeds = ARIS.cache.idForItemName('addedMeds');
+//                    ARIS.setItemCount(addedMeds, 1);
+//                }
+//            }
+//
+//        }
 
     </script>
     <script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/PatientInfo/HectorFernandezInfo.js"></script>
