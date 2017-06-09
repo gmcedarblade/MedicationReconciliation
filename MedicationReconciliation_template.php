@@ -6,7 +6,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Drug Adding with Table</title>
+    <title>Medication Reconciliation</title>
     <meta charset="utf-8">
     <style>
         th {
@@ -132,9 +132,18 @@ session_start();
                  * the Daily Med website for it as its value.
                  */
                 $ourDrugs = array(
-                        "Aspirin PO 5MG"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7d1950b4-3237-4512-bab3-4c7364bdd618",
-                    "Metropolol PO 2MG"=>"https://www.google.com",
-                    "Day Quill"=>"https://vicks.com/en-us");
+                        "Aspirin 81mg Enteric Coated"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9829f56f-723c-473f-89ee-4cb2efb3b8bc",
+                        "Lisinopril 10mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=27ccb2f4-abf8-4825-9b05-0bb367b4ac07");
+
+                /*
+                 * This is used for pre-populating medications if needed per
+                 * scenario. Uncomment if need to use and update appropriately.
+                 */
+
+//                if(!isset($_SESSION['medList'])) {
+//                    $_SESSION['medList'][] = array("Aspirin 81mg Enteric Coated", $ourDrugs['Aspirin 81mg Enteric Coated'], "One tab daily");
+//                    $_SESSION['medList'][] = array("Lisinopril 10mg", $ourDrugs['Lisinopril 10mg'], "One tab daily");
+//                }
 
                 /*
                  * Prints out the medication name/dosage, Daily Med link,
@@ -370,7 +379,26 @@ session_start();
          the drug name on the form. BE CAREFUL OF SPELLING!
          */
         $('#drugName').autocomplete({
-            source: [ 'Aspirin PO 5MG', 'Methylprednisolone', 'Advair', 'Fentanyl', 'Flonase', 'Zyrtec', 'Day Quill', 'Metropolol PO 2MG']
+            source: [ 'Acetaminophen 325 mg PO',
+                'Acetaminophen 500 mg PO',
+                'Acetaminophen 650 mg PO',
+                'Aspirin 81 mg PO',
+                'Aspirin 325 mg PO',
+                'Atorvastatin 10 mg PO',
+                'Atorvastatin 40 mg PO',
+                'Digoxin 125 mcg PO',
+                'Digoxin 250 mcg PO',
+                'Furosemide 20 mg PO',
+                'Furosemide 40 mg PO',
+                'Furosemide 80 mg PO',
+                'Insulin, Regular',
+                'Insulin, Lantus',
+                'Lisinopril 5 mg PO',
+                'Lisinopril 10 mg PO',
+                'Metoprolol Succinate ER 25 mg PO',
+                'Metoprolol Succinate ER 50 mg PO',
+                'Metoprolol Tartrate 25 mg PO',
+                'Metoprolol Tartrate 100 mg PO']
         });
 
         /*
