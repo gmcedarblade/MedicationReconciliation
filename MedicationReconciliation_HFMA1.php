@@ -3,6 +3,7 @@
 session_start();
 
 ?>
+<!--Medication Reconciliation HFMA1-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,9 +132,17 @@ session_start();
                  * as the drug name and it's dosage as the key and the URL to
                  * the Daily Med website for it as its value.
                  */
+
                 $ourDrugs = array(
                     "Aspirin 81 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9829f56f-723c-473f-89ee-4cb2efb3b8bc",
-                    "Lisinopril 10 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=27ccb2f4-abf8-4825-9b05-0bb367b4ac07");
+                    "Furosemide 40 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=a15d7845-5827-481d-ba3f-e4883489a5ef",
+                    "Lisinopril 10 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=27ccb2f4-abf8-4825-9b05-0bb367b4ac07",
+                    "Metoprolol Succinate ER 25 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=88f1abdc-f53e-4ff9-b4c1-3cfbc2609b79",
+                    "Atorvastatin 40 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6ccdb6f3-22c7-5b48-46bc-ce4a4c65eb4d",
+                    "Digoxin 125 mcg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=52373737-f92c-43e7-b1c1-7b87f7b415cf",
+                    "Acetaminophen 500 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=168da31e-de62-4280-9c66-2b41d2d93c31",
+                    "Insulin, Regular"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9ec3e28a-cea9-4e45-9057-e5bf8e37014c",
+                    "Insulin, Lantus"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6328c99d-d75f-43ef-b19e-7e71f91e57f6");
 
                 /*
                  * This is used for pre-populating medications if needed per

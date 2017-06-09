@@ -3,6 +3,7 @@
 session_start();
 
 ?>
+<!--Medication Reconciliation HFMA3 start template-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,8 +142,16 @@ session_start();
                  */
 
                 if(!isset($_SESSION['medList'])) {
+
+                    /*
+                     * Add each medication needed for pre-population as shown below,
+                     * make sure the medication is added to the $ourDrugs array
+                     * and source for the auto-complete if not there already.
+                     */
+
                     $_SESSION['medList'][] = array("Aspirin 81 mg PO", $ourDrugs['Aspirin 81 mg PO'], "One tab daily");
                     $_SESSION['medList'][] = array("Lisinopril 10 mg PO", $ourDrugs['Lisinopril 10 mg PO'], "One tab daily");
+
                 }
 
                 /*
