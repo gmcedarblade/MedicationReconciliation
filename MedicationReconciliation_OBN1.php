@@ -69,6 +69,31 @@ session_start();
         #linkTD {
             text-align: center;
         }
+        
+        #btnBegin {
+          background: #fafafa;
+          box-shadow: none;
+          border-radius: 0;
+          border-color: #dad6d3;
+          border-width: 1px 0 0 0;
+          color: #000;
+          display:block;
+          font-family: Helvetica Neue, Helvetica , Arial, sans-serif;
+          font-size: 24px;
+          font-weight: 200;
+          margin: 0;
+          position: absolute;
+            bottom: -16px;
+            right: -9px;
+          text-align: right;
+          width: 2000px;
+          height: 60px;
+        }
+
+        .continueArrow {
+          color: #106e9d;
+          font-weight: bold;
+        }
 
     </style>
     <link href="https://www.wisc-online.com/ARISE_Files/CSS/AriseMainCSS.css?random=wer" rel="stylesheet">
@@ -81,26 +106,36 @@ session_start();
 <body>
     <table id="patientInfoTable">
         <tr>
-            <th>Patient Name</th>
-            <th>DOB</th>
-            <th>MR#</th>
+          <th>Patient Name</th>
+          <th>DOB</th>
+          <th>MR#</th>
         </tr>
         <tr>
-            <td><span id="ptntNameOutput"></span></td>
-            <td><span id="ptntDOBOutput"></span></td>
-            <td><span id="ptntMROutput"></span></td>
+          <td><span id="ptntNameOutput"></span></td>
+          <td><span id="ptntDOBOutput"></span></td>
+          <td><span id="ptntMROutput"></span></td>
         </tr>
         <tr>
-            <th>Allergies</th>
-            <th>Height(cm)</th>
-            <th>Admission Weight(kg)</th>
+          <th>Gestational Age</th>
+          <th>Blood Type</th>
+          <th>EDC</th>
         </tr>
         <tr>
-            <td><span id="ptntAllergyOutput"></span></td>
-            <td><span id="ptntHeightOutput"></span></td>
-            <td><span id="ptntWeightOutput"></span></td>
+          <td><span id="ptntGestAgeOutput"></span></td>
+          <td><span id="ptntBloodTypeOutput"></span></td>
+          <td><span id="ptntEDCOutput"></span></td>
         </tr>
-    </table>
+        <tr>
+          <th>Allergies</th>
+          <th>Height(cm)</th>
+          <th>Usual Weight(kg)</th>
+        </tr>
+        <tr>
+          <td><span id="ptntAllergyOutput"></span></td>
+          <td><span id="ptntHeightOutput"></span></td>
+          <td><span id="ptntWeightOutput"></span></td>
+        </tr>
+      </table>
     <br>
     <br>
     <div class="medicationEnterArea" id="medicationEnterArea">
@@ -133,8 +168,11 @@ session_start();
                  * the Daily Med website for it as its value.
                  */
                 $ourDrugs = array(
-                    "Aspirin 81 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9829f56f-723c-473f-89ee-4cb2efb3b8bc",
-                    "Lisinopril 10 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=27ccb2f4-abf8-4825-9b05-0bb367b4ac07");
+                    "Fluoxetine 20 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=59de2889-c3d3-4ebf-8826-13f30a3fa439",
+                    "Loratadine 10 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=660ac9df-f1b1-4c89-94dd-9fae0a013f3c",
+                    "Homeopathic Sciatica PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5c5da2c7-e662-4dd3-ae5c-8ea2f3555916",
+                    "Acetaminophen 325 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=168da31e-de62-4280-9c66-2b41d2d93c31",
+                    "Homeopathic Melatonin PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=92a312cc-ef36-4f6b-9f9f-e81045f28934");
 
                 /*
                  * This is used for pre-populating medications if needed per
@@ -378,6 +416,9 @@ session_start();
                 ?>
         </table>
     </div>
+    <br>
+    <br>
+    <button type="button" id="btnBegin">Continue<span class="continueArrow"> &rang; </span></button>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <!--Link for the jquery auto-complete code-->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -391,23 +432,15 @@ session_start();
             source: [ 'Acetaminophen 325 mg PO',
                 'Acetaminophen 500 mg PO',
                 'Acetaminophen 650 mg PO',
-                'Aspirin 81 mg PO',
-                'Aspirin 325 mg PO',
-                'Atorvastatin 10 mg PO',
-                'Atorvastatin 40 mg PO',
-                'Digoxin 125 mcg PO',
-                'Digoxin 250 mcg PO',
-                'Furosemide 20 mg PO',
-                'Furosemide 40 mg PO',
-                'Furosemide 80 mg PO',
-                'Insulin, Regular',
-                'Insulin, Lantus',
-                'Lisinopril 5 mg PO',
-                'Lisinopril 10 mg PO',
-                'Metoprolol Succinate ER 25 mg PO',
-                'Metoprolol Succinate ER 50 mg PO',
-                'Metoprolol Tartrate 25 mg PO',
-                'Metoprolol Tartrate 100 mg PO']
+                'Fluocinolone Acetonide TOP',
+                'Fluoxetine 20 mg PO',
+                'Fluoxetine 40 mg PO',
+                'Fluconazole 150 mg PO',
+                'Fluconazole 150 mg PO',
+                'Homeopathic Sciatica PO',
+                'Homeopathic Melatonin PO',
+                'Lorazepam 0.5 mg PO',
+                'Loratadine 10 mg PO']
         });
 
         /*
@@ -430,9 +463,20 @@ session_start();
 //            }
 //
 //        }
+        
+        /*
+        JS for the continue button
+        */
+        var ARIS = {};
+      
+      ARIS.ready = function() {
+        document.getElementById("btnBegin").onclick = function() {
+          ARIS.exit();
+        }
+      }
 
     </script>
-    <script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/PatientInfo/HectorFernandezInfo.js"></script>
-    <script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/ptntInfoInclude.js"></script>
+    <script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/PatientInfo/OliviaBrooks.js"></script>
+    <script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/OBptntInfoInclude.js"></script>
 </body>
 </html>

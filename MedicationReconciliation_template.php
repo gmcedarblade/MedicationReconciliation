@@ -377,6 +377,7 @@ session_start();
                 ?>
         </table>
     </div>
+    <button type="button" id="btnBegin">Continue<span class="continueArrow"> &rang; </span></button>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <!--Link for the jquery auto-complete code-->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -429,6 +430,17 @@ session_start();
 //            }
 //
 //        }
+
+        /*
+         JS for the continue button
+         */
+        var ARIS = {};
+
+        ARIS.ready = function() {
+            document.getElementById("btnBegin").onclick = function() {
+                ARIS.exit();
+            }
+        }
 
     </script>
     <script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/PatientInfo/HectorFernandezInfo.js"></script>
