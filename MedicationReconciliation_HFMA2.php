@@ -167,7 +167,7 @@ session_start();
                     "Acetaminophen 500 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=168da31e-de62-4280-9c66-2b41d2d93c31");
 
                 /*
-                 * This is used for pre-populating medications if needed per
+                 * This is used for pre-populating active medications if needed per
                  * scenario. Uncomment if need to use and update appropriately.
                  */
 
@@ -181,6 +181,25 @@ session_start();
 //
 //                    $_SESSION['medList'][] = array("Aspirin 81 mg PO", $ourDrugs['Aspirin 81 mg PO'], "One tab daily");
 //                    $_SESSION['medList'][] = array("Lisinopril 10 mg PO", $ourDrugs['Lisinopril 10 mg PO'], "One tab daily");
+//
+//                }
+
+
+                /*
+                 * This is used for pre-populating discontinued medications if needed per
+                 * scenario. Uncomment if need to use and update appropriately.
+                 */
+
+//                if(!isset($_SESSION['discontinued'])) {
+//
+//                    /*
+//                     * Add each medication needed for pre-population as shown below,
+//                     * make sure the medication is added to the $ourDrugs array
+//                     * and source for the auto-complete if not there already.
+//                     */
+//
+//                    $_SESSION['discontinued'][] = array("Aspirin 81 mg PO", $ourDrugs['Aspirin 81 mg PO'], "One tab daily");
+//                    $_SESSION['discontinued'][] = array("Lisinopril 10 mg PO", $ourDrugs['Lisinopril 10 mg PO'], "One tab daily");
 //
 //                }
 

@@ -161,7 +161,7 @@ session_start();
                     "Lisinopril 10 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=27ccb2f4-abf8-4825-9b05-0bb367b4ac07");
 
                 /*
-                 * This is used for pre-populating medications if needed per
+                 * This is used for pre-populating active medications if needed per
                  * scenario. Uncomment if need to use and update appropriately.
                  */
 
@@ -175,6 +175,25 @@ session_start();
 //
 //                    $_SESSION['medList'][] = array("Aspirin 81 mg PO", $ourDrugs['Aspirin 81 mg PO'], "One tab daily");
 //                    $_SESSION['medList'][] = array("Lisinopril 10 mg PO", $ourDrugs['Lisinopril 10 mg PO'], "One tab daily");
+//
+//                }
+
+
+                /*
+                 * This is used for pre-populating discontinued medications if needed per
+                 * scenario. Uncomment if need to use and update appropriately.
+                 */
+
+//                if(!isset($_SESSION['discontinued'])) {
+//
+//                    /*
+//                     * Add each medication needed for pre-population as shown below,
+//                     * make sure the medication is added to the $ourDrugs array
+//                     * and source for the auto-complete if not there already.
+//                     */
+//
+//                    $_SESSION['discontinued'][] = array("Aspirin 81 mg PO", $ourDrugs['Aspirin 81 mg PO'], "One tab daily");
+//                    $_SESSION['discontinued'][] = array("Lisinopril 10 mg PO", $ourDrugs['Lisinopril 10 mg PO'], "One tab daily");
 //
 //                }
 
@@ -370,14 +389,16 @@ session_start();
                      */
                 } else if (isset($_SESSION['medList']) || isset($_SESSION['discontinued'])) {
 
-                    foreach ($_SESSION['medList'] as $item) {
+                    if(isset($_SESSION['medList'])) {
+                        foreach ($_SESSION['medList'] as $item) {
 
-                        printRows($item);
+                            printRows($item);
 
-                        echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . ">Discontinue</button></form></td></tr>";
+                            echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . ">Discontinue</button></form></td></tr>";
 
-                        $number++;
+                            $number++;
 
+                        }
                     }
 
                     if(isset($_SESSION['discontinued'])) {
