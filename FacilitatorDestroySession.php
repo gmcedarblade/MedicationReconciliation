@@ -6,6 +6,30 @@
     <link href="https://www.wisc-online.com/ARISE_Files/CSS/AriseMainCSS.css?random=wetasdfrer" rel="stylesheet">
     <style>
 
+        #btnBegin {
+            background: #fafafa;
+            box-shadow: none;
+            border-radius: 0;
+            border-color: #dad6d3;
+            border-width: 1px 0 0 0;
+            color: #000;
+            display:block;
+            font-family: Helvetica Neue, Helvetica , Arial, sans-serif;
+            font-size: 24px;
+            font-weight: 200;
+            margin: 0;
+            position: absolute;
+            bottom: -16px;
+            right: -9px;
+            text-align: right;
+            width: 2000px;
+            height: 60px;
+        }
+
+        .continueArrow {
+            color: #106e9d;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="noReport">
@@ -39,5 +63,20 @@
     session_destroy();
     ?>
 </main>
+<button type="button" id="btnBegin">Continue<span class="continueArrow"> &rang; </span></button>
+<script type="text/javascript">
+
+    /*
+     JS for the continue button
+     */
+    var ARIS = {};
+
+    ARIS.ready = function() {
+        document.getElementById("btnBegin").onclick = function() {
+            ARIS.exit();
+        }
+    }
+
+</script>
 </body>
 </html>
