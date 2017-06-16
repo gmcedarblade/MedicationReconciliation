@@ -398,14 +398,16 @@ session_start();
                      */
                 } else if (isset($_SESSION['medList']) || isset($_SESSION['discontinued'])) {
 
-                    foreach ($_SESSION['medList'] as $item) {
+                    if(isset($_SESSION['medList'])) {
+                        foreach ($_SESSION['medList'] as $item) {
 
-                        printRows($item);
+                            printRows($item);
 
-                        echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . ">Discontinue</button></form></td></tr>";
+                            echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . ">Discontinue</button></form></td></tr>";
 
-                        $number++;
+                            $number++;
 
+                        }
                     }
 
                     if(isset($_SESSION['discontinued'])) {
