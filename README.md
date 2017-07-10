@@ -26,6 +26,7 @@ Two parts of code that need to be updated per scenario:
 
 
    * Medications can be typed free-form, but medication names are case sensitive and spelling must match what is in the approved medication $ourDrugs array, or the customization will not add the medication.
+   
       ```jquery
       $('#drugName').autocomplete({
         source: [ 'medication1 someDosage', 'medication2 someDosage', etc..]
