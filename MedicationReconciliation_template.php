@@ -6,7 +6,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Drug Adding with Table</title>
+    <title>Medication Reconciliation</title>
     <meta charset="utf-8">
     <style>
         th {
@@ -41,6 +41,8 @@ session_start();
 
         #discontinuedMedList button {
             color: #8f8f8f;
+            background-color: #cfd0d0;
+            border-color: #8f8f8f;
         }
 
         #activeMedList i {
@@ -57,13 +59,41 @@ session_start();
 
         #activeMedList td {
             width: 25%;
-
         }
 
         #discontinuedMedList td {
             width: 25%;
-
         }
+
+        #linkTD {
+            text-align: center;
+        }
+
+        #btnBegin {
+            background: #fafafa;
+            box-shadow: none;
+            border-radius: 0;
+            border-color: #dad6d3;
+            border-width: 1px 0 0 0;
+            color: #000;
+            display:block;
+            font-family: Helvetica Neue, Helvetica , Arial, sans-serif;
+            font-size: 24px;
+            font-weight: 200;
+            margin: 0;
+            position: absolute;
+            bottom: -16px;
+            right: -9px;
+            text-align: right;
+            width: 2000px;
+            height: 60px;
+        }
+
+        .continueArrow {
+            color: #106e9d;
+            font-weight: bold;
+        }
+
     </style>
     <link href="https://www.wisc-online.com/ARISE_Files/CSS/AriseMainCSS.css?random=wer" rel="stylesheet">
     <!-- CSS for AutoComplete -->
@@ -127,18 +157,54 @@ session_start();
                  * the Daily Med website for it as its value.
                  */
                 $ourDrugs = array(
-                        "Aspirin PO 5MG"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7d1950b4-3237-4512-bab3-4c7364bdd618",
-                    "Metropolol PO 2MG"=>"https://www.google.com",
-                    "Day Quill"=>"https://vicks.com/en-us");
+                    "Aspirin 81 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9829f56f-723c-473f-89ee-4cb2efb3b8bc",
+                    "Lisinopril 10 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=27ccb2f4-abf8-4825-9b05-0bb367b4ac07");
+
+                /*
+                 * This is used for pre-populating active medications if needed per
+                 * scenario. Uncomment if need to use and update appropriately.
+                 */
+
+//                if(!isset($_SESSION['medList'])) {
+//
+//                    /*
+//                     * Add each medication needed for pre-population as shown below,
+//                     * make sure the medication is added to the $ourDrugs array
+//                     * and source for the auto-complete if not there already.
+//                     */
+//
+//                    $_SESSION['medList'][] = array("Aspirin 81 mg PO", $ourDrugs['Aspirin 81 mg PO'], "One tab daily");
+//                    $_SESSION['medList'][] = array("Lisinopril 10 mg PO", $ourDrugs['Lisinopril 10 mg PO'], "One tab daily");
+//
+//                }
+
+
+                /*
+                 * This is used for pre-populating discontinued medications if needed per
+                 * scenario. Uncomment if need to use and update appropriately.
+                 */
+
+//                if(!isset($_SESSION['discontinued'])) {
+//
+//                    /*
+//                     * Add each medication needed for pre-population as shown below,
+//                     * make sure the medication is added to the $ourDrugs array
+//                     * and source for the auto-complete if not there already.
+//                     */
+//
+//                    $_SESSION['discontinued'][] = array("Aspirin 81 mg PO", $ourDrugs['Aspirin 81 mg PO'], "One tab daily");
+//                    $_SESSION['discontinued'][] = array("Lisinopril 10 mg PO", $ourDrugs['Lisinopril 10 mg PO'], "One tab daily");
+//
+//                }
 
                 /*
                  * Prints out the medication name/dosage, Daily Med link,
-                 * and notes that were entered in when called.
+                 * and notes that were entered in when called
                  */
                 function printRows($item) {
 
                     echo "<tr><td>$item[0]</td>";
-                    echo "<td><a href='$item[1]'><i class=\"material-icons md-36\" style='float: none;'>link</i></a></td>";
+                    echo "<td id='linkTD'><a href='$item[1]'><i class=\"material-icons md-36\" style='float: none;'>link</i></a></td>";
                     echo "<td>$item[2]</td>";
 
 
@@ -323,33 +389,41 @@ session_start();
                      */
                 } else if (isset($_SESSION['medList']) || isset($_SESSION['discontinued'])) {
 
-                    foreach ($_SESSION['medList'] as $item) {
+                    if(isset($_SESSION['medList'])) {
+                        foreach ($_SESSION['medList'] as $item) {
 
-                        printRows($item);
+                            printRows($item);
 
-                        echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . ">Discontinue</button></form></td></tr>";
+                            echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . ">Discontinue</button></form></td></tr>";
 
-                        $number++;
+                            $number++;
+
+                        }
+                    }
+
+                    if(isset($_SESSION['discontinued'])) {
+
+                        discontinuedTable();
+
+                        foreach ($_SESSION['discontinued'] as $value) {
+
+                            printRows($value);
+
+                            echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . " disabled='disabled'>Discontinue</button></form></td></tr>";
+
+                            $number++;
+
+                        }
 
                     }
 
-                    discontinuedTable();
-
-                    foreach ($_SESSION['discontinued'] as $value) {
-
-                        printRows($value);
-
-                        echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . " disabled='disabled'>Discontinue</button></form></td></tr>";
-
-                        $number++;
-
-                    }
 
                 }
 
                 ?>
         </table>
     </div>
+    <button type="button" id="btnBegin">Continue<span class="continueArrow"> &rang; </span></button>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <!--Link for the jquery auto-complete code-->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -360,8 +434,59 @@ session_start();
          the drug name on the form. BE CAREFUL OF SPELLING!
          */
         $('#drugName').autocomplete({
-            source: [ 'Aspirin PO 5MG', 'Methylprednisolone', 'Advair', 'Fentanyl', 'Flonase', 'Zyrtec', 'Day Quill', 'Metropolol PO 2MG']
+            source: [ 'Acetaminophen 325 mg PO',
+                'Acetaminophen 500 mg PO',
+                'Acetaminophen 650 mg PO',
+                'Aspirin 81 mg PO',
+                'Aspirin 325 mg PO',
+                'Atorvastatin 10 mg PO',
+                'Atorvastatin 40 mg PO',
+                'Digoxin 125 mcg PO',
+                'Digoxin 250 mcg PO',
+                'Furosemide 20 mg PO',
+                'Furosemide 40 mg PO',
+                'Furosemide 80 mg PO',
+                'Insulin, Regular',
+                'Insulin, Lantus',
+                'Lisinopril 5 mg PO',
+                'Lisinopril 10 mg PO',
+                'Metoprolol Succinate ER 25 mg PO',
+                'Metoprolol Succinate ER 50 mg PO',
+                'Metoprolol Tartrate 25 mg PO',
+                'Metoprolol Tartrate 100 mg PO']
         });
+
+        /*
+        Code to allow us to check if certain medication is in the $_SESSION['medList'}
+        and if it is then send to ARIS a set item count to 1. Do NOT uncomment unless
+        we are using this in the scenario.
+         */
+
+//        var phpArray = <?php //echo json_encode($_SESSION['medList']); ?>//;
+//
+//        for (var i=0; i<phpArray.length; i++) {
+//
+//            if(phpArray[i][0] == "Aspirin PO 5MG") {
+//                console.log("HERE!");
+//                var ARIS = {};
+//                ARIS.ready = function () {
+//                    var addedMeds = ARIS.cache.idForItemName('addedMeds');
+//                    ARIS.setItemCount(addedMeds, 1);
+//                }
+//            }
+//
+//        }
+
+        /*
+         JS for the continue button
+         */
+        var ARIS = {};
+
+        ARIS.ready = function() {
+            document.getElementById("btnBegin").onclick = function() {
+                ARIS.exit();
+            }
+        }
 
     </script>
     <script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/PatientInfo/HectorFernandezInfo.js"></script>
