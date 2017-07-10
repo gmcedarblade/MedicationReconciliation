@@ -23,10 +23,8 @@ Two parts of code that need to be updated per scenario:
 
    * This populates a drop-down list associated with the Medication text field that appears when the user begins typing. Users can then select the medication they want, and it will auto-complete the entry.
 
-
-
    * Medications can be typed free-form, but medication names are case sensitive and spelling must match what is in the approved medication $ourDrugs array, or the customization will not add the medication.
-   
+
       ```jquery
       $('#drugName').autocomplete({
         source: [ 'medication1 someDosage', 'medication2 someDosage', etc..]
