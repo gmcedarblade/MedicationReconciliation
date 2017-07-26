@@ -153,7 +153,6 @@ session_start();
     <table id="activeMedList">
         <tr>
             <th>Current Medication</th>
-            <th>Daily Med Link</th>
             <th>Notes</th>
             <th>Edit</th>
             <?php
@@ -167,24 +166,24 @@ session_start();
              * as the drug name and it's dosage as the key and the URL to
              * the Daily Med website for it as its value.
              */
-            $ourDrugs = array(
-                "Acetaminophen 500 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=168da31e-de62-4280-9c66-2b41d2d93c31",
-                "Lisinopril 2.5 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=43e2c8d1-3704-4323-bcaf-f582572b81f7&audience=consumer",
-                "Metoprol ER"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2d948600-35d8-4490-983b-918bdce488c8&audience=consumer",
-                "Spironolactone 25 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c23b6b9b-aec3-48a8-a518-76e4097f6479&audience=consumer",
-                "Coumadin 3 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d91934a0-902e-c26c-23ca-d5accc4151b6&audience=consumer",
-                "Atorvastatin 20 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6ccdb6f3-22c7-5b48-46bc-ce4a4c65eb4d",
-                "Diltiazem 120 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=862d65cb-a732-4786-b569-bad2eaafddfd&audience=consumer",
-                "Levothyroxine 100 mcg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=99aebc74-0e34-4ab3-bb59-d9fb2b9a4444&audience=consumer",
-                "Glipizide & Metformin 2.5 mg/250 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=bd2e1c06-424b-4222-b723-90ffdcc3983c&audience=consumer",
-                "Carbidopa & Levodopa ER 50 mg/200 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5217a6ec-cc26-4acc-b2da-17f6545c3b60&audience=consumer",
-                "Asprin 81 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9147c0ce-fcdb-457c-b9f5-e4edd66e91d0",
-                "Nitroglycerin 0.4 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e98a2692-1cb9-4994-98d8-1d8d9ef1a256&audience=consumer",
-                "Milk of Magnesia"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7dee2a74-ca93-4e4a-b456-92b0bc52dfd4&audience=consumer",
-                "Ducosate sodium"=>"#",
-                "Spiriva Respimat 1.25 mcg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7b656b14-fcaa-2741-f6f0-e0be48971c02&audience=consumer",
-                "Pulmicort Flexhaler 90 mcg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=54234b7d-3bcc-4809-1881-1d21484856a0&audience=consumer"
-            );
+//            $ourDrugs = array(
+//                "Acetaminophen 500 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=168da31e-de62-4280-9c66-2b41d2d93c31",
+//                "Lisinopril 2.5 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=43e2c8d1-3704-4323-bcaf-f582572b81f7&audience=consumer",
+//                "Metoprol ER"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2d948600-35d8-4490-983b-918bdce488c8&audience=consumer",
+//                "Spironolactone 25 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c23b6b9b-aec3-48a8-a518-76e4097f6479&audience=consumer",
+//                "Coumadin 3 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=d91934a0-902e-c26c-23ca-d5accc4151b6&audience=consumer",
+//                "Atorvastatin 20 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=6ccdb6f3-22c7-5b48-46bc-ce4a4c65eb4d",
+//                "Diltiazem 120 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=862d65cb-a732-4786-b569-bad2eaafddfd&audience=consumer",
+//                "Levothyroxine 100 mcg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=99aebc74-0e34-4ab3-bb59-d9fb2b9a4444&audience=consumer",
+//                "Glipizide & Metformin 2.5 mg/250 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=bd2e1c06-424b-4222-b723-90ffdcc3983c&audience=consumer",
+//                "Carbidopa & Levodopa ER 50 mg/200 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5217a6ec-cc26-4acc-b2da-17f6545c3b60&audience=consumer",
+//                "Asprin 81 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=9147c0ce-fcdb-457c-b9f5-e4edd66e91d0",
+//                "Nitroglycerin 0.4 mg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=e98a2692-1cb9-4994-98d8-1d8d9ef1a256&audience=consumer",
+//                "Milk of Magnesia"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7dee2a74-ca93-4e4a-b456-92b0bc52dfd4&audience=consumer",
+//                "Ducosate sodium"=>"#",
+//                "Spiriva Respimat 1.25 mcg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7b656b14-fcaa-2741-f6f0-e0be48971c02&audience=consumer",
+//                "Pulmicort Flexhaler 90 mcg"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=54234b7d-3bcc-4809-1881-1d21484856a0&audience=consumer"
+//            );
 
             /*
              * This is used for pre-populating medications if needed per
@@ -211,8 +210,7 @@ session_start();
             function printRows($item) {
 
                 echo "<tr><td>$item[0]</td>";
-                echo "<td id='linkTD'><a href='$item[1]'><i class=\"material-icons md-36\" style='float: none;'>link</i></a></td>";
-                echo "<td>$item[2]</td>";
+                echo "<td>$item[1]</td>";
 
 
             }
@@ -224,7 +222,6 @@ session_start();
             function discontinuedTable() {
 
                 echo "</table><br><br><table id='discontinuedMedList'><tr><th>Discontinued Medication</th>";
-                echo "<th>Daily Med Link</th>";
                 echo "<th>Notes</th>";
                 echo "<th>Edit</th></tr>";
 
@@ -247,14 +244,14 @@ session_start();
                  * the form for the medication and if that medication
                  * is in our list of approved medications to be added.
                  */
-                if (array_key_exists($drug, $ourDrugs)) {
+//                if (array_key_exists($drug, $ourDrugs)) {
 
                     /*
                      * Sets the medication, daily med link, and medication note
                      * in the session "medList" so we are able to access it if
                      * the user returns to the scenario.
                      */
-                    $_SESSION['medList'][] = array($drug, $ourDrugs[$drug], $note);
+                    $_SESSION['medList'][] = array($drug, $note);
 
                     /*
                      * Iterate through the session "medList" to be able
@@ -296,49 +293,49 @@ session_start();
                      * medication that is not in our approved list
                      * of medications
                      */
-                } else {
-
-
-                    echo "<h1>This medication cannot be added.</h1>";
-
-                    /*
-                     * Check if the session "medList" is set and not null
-                     * and then prints it out.
-                     */
-                    if(isset($_SESSION['medList'])) {
-
-                        foreach ($_SESSION['medList'] as $item) {
-
-                            printRows($item);
-
-                            echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . ">Discontinue</button></form></td></tr>";
-
-                            $number++;
-                        }
-
-                        /*
-                         * Check if the session "discontinued" is set
-                         * and not null and prints it out.
-                         */
-                        if (isset($_SESSION['discontinued'])) {
-
-                            discontinuedTable();
-
-                            foreach ($_SESSION['discontinued'] as $value) {
-
-                                printRows($value);
-
-                                echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . " disabled='disabled'>Discontinue</button></form></td></tr>";
-
-                                $number++;
-
-                            }
-
-                        }
-
-                    }
-
-                }
+//                } else {
+//
+//
+//                    echo "<h1>This medication cannot be added.</h1>";
+//
+//                    /*
+//                     * Check if the session "medList" is set and not null
+//                     * and then prints it out.
+//                     */
+//                    if(isset($_SESSION['medList'])) {
+//
+//                        foreach ($_SESSION['medList'] as $item) {
+//
+//                            printRows($item);
+//
+//                            echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . ">Discontinue</button></form></td></tr>";
+//
+//                            $number++;
+//                        }
+//
+//                        /*
+//                         * Check if the session "discontinued" is set
+//                         * and not null and prints it out.
+//                         */
+//                        if (isset($_SESSION['discontinued'])) {
+//
+//                            discontinuedTable();
+//
+//                            foreach ($_SESSION['discontinued'] as $value) {
+//
+//                                printRows($value);
+//
+//                                echo "<td><form action=" . htmlspecialchars($_SERVER['PHP_SELF']) . " method='get' name='discontinue'><button type='submit' name='discontinue' value=" . $number . " disabled='disabled'>Discontinue</button></form></td></tr>";
+//
+//                                $number++;
+//
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//                }
 
                 /*
                  * Checks if the user has clicked form button to
@@ -459,7 +456,7 @@ session_start();
             'Lisinopril 10 mg',
             'Lisinopril & Hydrochlorothiazide 10 mg/12.5 mg',
             'Atorvastatin 80 mg',
-            'Metoprolol 100 mg',
+            'Metoprolol ER 100 mg',
             'Metopirone 250 mg',
             'Spironolactone 50 mg',
             'Coumadin 1 mg',
@@ -506,7 +503,7 @@ session_start();
 
 
 </script>
-<script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/PatientInfo/OliviaBrooks_8w3d.js"></script>
-<script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/OBptntInfoInclude.js"></script>
+<script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/PatientInfo/HenryFosterInfo.js"></script>
+<script type="text/javascript" src="https://www.wisc-online.com/ARISE_Files/JS/ptntInfoInclude.js"></script>
 </body>
 </html>
