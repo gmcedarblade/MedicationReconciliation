@@ -171,7 +171,7 @@ session_start();
                     "Fluoxetine 20 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=59de2889-c3d3-4ebf-8826-13f30a3fa439",
                     "Loratadine 10 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=660ac9df-f1b1-4c89-94dd-9fae0a013f3c",
                     "Homeopathic Sciatica PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=5c5da2c7-e662-4dd3-ae5c-8ea2f3555916",
-                    "Acetaminophen 325 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=168da31e-de62-4280-9c66-2b41d2d93c31",
+                    "Acetaminophen 500 mg PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=168da31e-de62-4280-9c66-2b41d2d93c31",
                     "Homeopathic Melatonin PO"=>"https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=92a312cc-ef36-4f6b-9f9f-e81045f28934");
 
                 /*
